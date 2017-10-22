@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="25.6"
+   height="25.6"
+   id="svg6662"
+   version="1.1"
+   inkscape:version="0.92.1 r15371"
+   sodipodi:docname="document-save.svg">
+  <defs
+     id="defs6664">
+    <linearGradient
+       y2="11.02436"
+       y1="3.0069399"
+       x2="0"
+       id="linearGradient1022-8-8-3-0-3-6"
+       gradientUnits="userSpaceOnUse">
+      <stop
+         id="stop3001-0-9-4-4-8"
+         offset="0" />
+      <stop
+         id="stop3003-5-6-6-9-3"
+         stop-color="#363636"
+         offset="1" />
+    </linearGradient>
+    <linearGradient
+       y2="21.128475"
+       x2="49.68779"
+       y1="11.192868"
+       x1="49.68779"
+       gradientTransform="matrix(1.679991,0,0,1.5097216,41.524957,310.4648)"
+       gradientUnits="userSpaceOnUse"
+       id="linearGradient6749"
+       xlink:href="#linearGradient1022-8-8-3-0-3-6"
+       inkscape:collect="always" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="3.959798"
+     inkscape:cx="-22.719253"
+     inkscape:cy="12.379252"
+     inkscape:document-units="px"
+     inkscape:current-layer="capa1"
+     showgrid="false"
+     inkscape:showpageshadow="false"
+     inkscape:window-width="864"
+     inkscape:window-height="702"
+     inkscape:window-x="484"
+     inkscape:window-y="36"
+     inkscape:window-maximized="0" />
+  <metadata
+     id="metadata6667">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Capa 1"
+     inkscape:groupmode="layer"
+     id="capa1"
+     transform="translate(0,-1096.9197)">
+    <rect
+       style="color:#000000;display:inline;overflow:visible;visibility:visible;opacity:0.6;fill:none;stroke:none;stroke-width:1.06666672;marker:none;enable-background:accumulate"
+       id="rect3343"
+       width="25.6"
+       height="25.6"
+       x="0"
+       y="1096.9197"
+       inkscape:export-filename="/home/flavio/BatovideWorkSpace/CoralEditor/Iconos/document-save.png"
+       inkscape:export-xdpi="240"
+       inkscape:export-ydpi="240" />
+    <path
+       id="path6147"
+       style="color:#000000;display:inline;overflow:visible;visibility:visible;opacity:0.6;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.06666672;marker:none;enable-background:accumulate"
+       d="m 5.3333333,1107.5871 h 6.3999997 l 2.133334,2.1333 h 6.4 v 9.5993 l -14.9333337,-4e-4 z m 0,-2.1333 L 3.2,1107.5871 v 11.7326 l 2.1333333,2.1333 H 20.266667 L 22.4,1119.3197 v -9.5993 l -2.133333,-2.1333 H 14.933333 L 12.8,1105.4538 Z M 12.8,1104.3871 8.5333333,1100.1204 h 8.5333337 z"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cccccccccccccccccccccc"
+       inkscape:export-filename="/home/flavio/BatovideWorkSpace/CoralEditor/Iconos/document-save.png"
+       inkscape:export-xdpi="240"
+       inkscape:export-ydpi="240" />
+    <path
+       sodipodi:nodetypes="cccccccccccccccccccccc"
+       inkscape:connector-curvature="0"
+       d="m 5.3333333,1106.5197 h 6.3999997 l 2.133334,2.1333 h 6.4 v 9.5993 l -14.9333337,-5e-4 z m 0,-2.1334 L 3.2,1106.5197 v 11.7326 l 2.1333333,2.1333 H 20.266667 L 22.4,1118.2523 v -9.5993 l -2.133333,-2.1333 H 14.933333 L 12.8,1104.3863 Z M 12.8,1103.3197 8.5333333,1099.053 h 8.5333337 z"
+       style="color:#000000;display:inline;overflow:visible;visibility:visible;opacity:1;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.06666672;marker:none;enable-background:accumulate"
+       id="path3345"
+       inkscape:export-filename="/home/flavio/BatovideWorkSpace/CoralEditor/Iconos/document-save.png"
+       inkscape:export-xdpi="240"
+       inkscape:export-ydpi="240" />
+  </g>
+</svg>

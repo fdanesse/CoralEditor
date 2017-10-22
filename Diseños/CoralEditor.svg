@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="18.933334mm"
+   height="18.933334mm"
+   viewBox="0 0 18.933334 18.933334"
+   version="1.1"
+   id="svg8"
+   inkscape:version="0.92.1 r15371"
+   sodipodi:docname="CoralEditor.svg">
+  <defs
+     id="defs2" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="5.6"
+     inkscape:cx="29.942869"
+     inkscape:cy="32.70018"
+     inkscape:document-units="mm"
+     inkscape:current-layer="g4600"
+     showgrid="false"
+     showguides="true"
+     inkscape:guide-bbox="true"
+     fit-margin-top="1"
+     fit-margin-left="1"
+     fit-margin-right="1"
+     fit-margin-bottom="1"
+     inkscape:window-width="1280"
+     inkscape:window-height="669"
+     inkscape:window-x="0"
+     inkscape:window-y="27"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Capa 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(209.79406,-109.08357)">
+    <g
+       id="g4600">
+      <rect
+         style="opacity:1;fill:none;fill-opacity:0.56018521;stroke-width:1.00250375"
+         id="rect4668"
+         width="19.036207"
+         height="18.941713"
+         x="-209.81551"
+         y="109.0494"
+         inkscape:export-filename="/home/flavio/BatovideWorkSpace/CoralEditor/Iconos/coraleditor.png"
+         inkscape:export-xdpi="85.400002"
+         inkscape:export-ydpi="85.400002" />
+      <g
+         id="g4666"
+         transform="matrix(0.11006229,0,0,0.10867506,-178.2789,105.66678)"
+         inkscape:export-filename="/home/flavio/BatovideWorkSpace/CoralEditor/Iconos/coraleditor.png"
+         inkscape:export-xdpi="85.400002"
+         inkscape:export-ydpi="85.400002">
+        <path
+           style="fill:#ff0000;fill-rule:evenodd"
+           d="m -270.63095,70.970241 c -24.24116,41.367119 22.357,125.488089 70.30356,125.488089 47.94656,0 94.54473,-84.12097 70.30357,-125.488088 -23.69638,-40.437467 -116.91075,-40.437466 -140.60713,-10e-7 z"
+           id="path4497"
+           inkscape:connector-curvature="0"
+           sodipodi:nodetypes="aaaa" />
+        <path
+           style="fill:#ffffff;fill-opacity:0.99074073;fill-rule:evenodd"
+           d="m -263.60059,75.728241 c -21.81705,37.230409 20.1213,112.939279 63.27321,112.939279 43.15189,0 85.09025,-75.70887 63.2732,-112.939279 -21.32673,-36.393719 -105.21967,-36.393718 -126.54641,0 z"
+           id="path4497-3"
+           inkscape:connector-curvature="0"
+           sodipodi:nodetypes="aaaa" />
+        <path
+           style="fill:#1a1a1a;fill-rule:evenodd"
+           d="m -254.10961,82.151539 c -18.54449,31.645851 17.10311,95.998391 53.78223,95.998391 36.67911,0 72.32671,-64.35254 53.78222,-95.998391 -18.12772,-30.934663 -89.43672,-30.934662 -107.56445,0 z"
+           id="path4497-3-6"
+           inkscape:connector-curvature="0"
+           sodipodi:nodetypes="aaaa" />
+        <text
+           id="text4659"
+           y="128.89044"
+           x="-242.84105"
+           style="font-style:normal;font-weight:normal;font-size:65.52921295px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1.63823032px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+           xml:space="preserve"><tspan
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Abyssinica SIL';-inkscape-font-specification:'Abyssinica SIL';fill:#ffffff;stroke-width:1.63823032px"
+             y="128.89044"
+             x="-242.84105"
+             id="tspan4657"
+             sodipodi:role="line">CE</tspan></text>
+      </g>
+    </g>
+  </g>
+</svg>
