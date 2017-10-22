@@ -12,8 +12,11 @@ from PyQt5.QtWidgets import QPlainTextEdit
 #from PyQt5.QtGui import QFont
 #from PyQt5.QtGui import QTextCursor
 
+from Gui.Syntax.SyntaxHighlighter import SyntaxHighlighter
+
 
 class TextEdit(QPlainTextEdit):
+    # https://doc.qt.io/qt-5/qplaintextedit.html
     # https://github.com/hugoruscitti/pilas/blob/e33bfd80a9c9faec432dbd3de1d82066b8704303/pilasengine/interprete/editorbase/editor_base.py
     # http://www.binpress.com/tutorial/developing-a-pyqt-text-editor-part-2/145
     # http://ftp.ics.uci.edu/pub/centos0/ics-custom-build/BUILD/PyQt-x11-gpl-4.7.2/doc/html/qtextedit.html
@@ -59,5 +62,7 @@ class TextEdit(QPlainTextEdit):
         else:
             #self.setText("#!/usr/bin/python3\n# -*- coding: utf-8 -*-\n\n")
             self.setPlainText("#!/usr/bin/python3\n# -*- coding: utf-8 -*-\n\n")
+
+        self.syntaxHighlighter = SyntaxHighlighter(self.document())
 
         #self.selectAll()
