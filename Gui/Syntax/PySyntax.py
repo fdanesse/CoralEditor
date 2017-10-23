@@ -6,65 +6,90 @@ from PyQt5.QtGui import QTextCharFormat
 from PyQt5.QtGui import QFont
 from PyQt5.QtCore import QRegExp
 
+SYNTAX = {}
+#BRACES = ['\\(', '\\)', '\\{', '\\}', '\\[', '\\]']
 
-def __formatear(color, estilo=""):
-    qcolor = QColor()
-    qcolor.setNamedColor(color)
-    formato = QTextCharFormat()
-    formato.setForeground(qcolor)
-    if "bold" in estilo:
-        formato.setFontWeight(QFont.Bold)
-    if "italic" in estilo:
-        formato.setFontItalic(True)
-    return formato
+#FIXME: faltan reglas para funciones, por ejemplo range()
 
 
-ESTILOS = {
-    "keyword": __formatear("blue"),
-    "operator": __formatear("red"),
-    "brace": __formatear("darkGray"),
-    "defclass": __formatear("black", "bold"),
-    "string": __formatear("magenta"),
-    "string2": __formatear("darkMagenta"),
-    "comment": __formatear("darkGreen", "italic"),
-    "self": __formatear("black", "italic"),
-    "numbers": __formatear("brown"),
-}
+def __format(color, style=''):
+    _color = QColor()
+    _color.setNamedColor(color)
+    _format = QTextCharFormat()
+    _format.setForeground(_color)
+    if 'bold' in style:
+        _format.setFontWeight(QFont.Bold)
+    if 'italic' in style:
+        _format.setFontItalic(True)
+    return _format
 
-keywords = [
-    "and", "assert", "break", "class", "continue", "def",
-    "del", "if", "elif", "else", "exec", "finally",
-    "for", "from", "global", "import", "in",
-    "is", "lambda", "not", "or", "pass", "print",
-    "raise", "return", "try", "except", "while", "yield",
-    "None", "True", "False",
-    ]
 
-operadores = [
-    "=",
-    "==", "!=", "<", "<=", ">", ">=",
-    "\+", "-", "\*", "/", "//", "\%", "\*\*",
-    "\+=", "-=", "\*=", "/=", "\%=",
-    "\^", "\|", "\&", "\~", ">>", "<<",
-    ]
+COLOR_SCHEME = {
+    "keyword": "#c9264c",
+    "operator": "#c9264c",
+    #"brace": "#858585",
+    "definition": "#55a92d",
+    "string": "#d8d170",
+    "string2": "darkGreen",
+    "comment": "gray",
+    "properObject": "orange",
+    "numbers": "brown",
+    #"spaces": "#BFBFBF",
+    #"extras": "orange",
+    #"editor-background": "white",
+    #"editor-selection-color": "white",
+    #"editor-selection-background": "#437DCD",
+    #"editor-text": "black",
+    #"current-line": "darkCyan",
+    #"selected-word": "yellow",
+    #"brace-background": "#5BC85B",
+    #"brace-foreground": "red"
+    }
 
-parentesis = ["\{", "\}", "\(", "\)", "\[", "\]"]
 
-tri_single = (QRegExp("'''"), 1, ESTILOS['string2'])
-tri_double = (QRegExp('"""'), 2, ESTILOS['string2'])
+STYLES = {
+    'keyword': __format(COLOR_SCHEME['keyword']),
+    'operator': __format(COLOR_SCHEME['operator']),
+    #'brace': __format(COLOR_SCHEME['brace']),
+    'definition': __format(COLOR_SCHEME['definition']),
+    'string': __format(COLOR_SCHEME['string']),
+    'string2': __format(COLOR_SCHEME['string2']),
+    'comment': __format(COLOR_SCHEME['comment']),
+    'properObject': __format(COLOR_SCHEME['properObject']),
+    'numbers': __format(COLOR_SCHEME['numbers']),
+    #'spaces': __format(COLOR_SCHEME['spaces']),
+    #'extras': __format(COLOR_SCHEME['extras'])
+    }
 
-rules = []
-rules.extend([(r"\b%s\b" % w, 0, ESTILOS["keyword"]) for w in keywords])
-rules.extend([(r"%s" % o, 0, ESTILOS["operator"]) for o in operadores])
-rules.extend([(r"%s" % b, 0, ESTILOS["brace"]) for b in parentesis])
+SYNTAX = {
+    'comment': ['#'],
+    'definition': ['def', 'class', 'super'],
+    'string': ["'", '"'],
+    #'extension': ['py'],
+    'properObject': ['self'],
+    'operators': ['=', '==', '!=', '<', '<=', '>', '>=', '\\+', '-', '\\*',
+        '/', '//', '\\%', '\\*\\*', '\\+=', '-=', '\\*=', '/=', '\\%=', '\\^',
+        '\\|', '\\&', '\\~', '>>', '<<'],
+    'keywords': ['and', 'assert', 'break', 'continue',
+        'del', 'elif', 'else', 'except', 'exec', 'finally', 'for', 'from',
+        'global', 'if', 'import', 'in', 'is', 'lambda', 'not', 'or', 'pass',
+        'print', 'raise', 'return', 'try', 'while', 'yield',
+        'None', 'True', 'False']
+    }
 
-rules.extend([(r"\bself\b", 0, ESTILOS["self"]),
-    (r'"[^"\\]*(\\.[^"\\]*)*', 0, ESTILOS["string"]),
-    (r"\bdef\b\s*(\w+)", 1, ESTILOS["defclass"]),
-    (r"\bclass\b\s*(\w+)", 1, ESTILOS["defclass"]),
-    (r"#[^\n]*", 0, ESTILOS["comment"]),
-    (r"\b[+-]?[0-9]+[lL]?\b", 0, ESTILOS["numbers"]),
-    (r"\b[+-]?0[xX][0-9A-Fa-f]+[lL]?\b", 0, ESTILOS["numbers"]),
-    (r"\b[+-]?[0-9]+(?:\.[0-9]+)?(?:[eE][+-]?[0-9]+)?\b", 0, ESTILOS["numbers"])])
+tri_single = (QRegExp("'''"), 1, STYLES['string2'])
+tri_double = (QRegExp('"""'), 2, STYLES['string2'])
 
-rules = [(QRegExp(pat), index, fmt) for (pat, index, fmt) in rules]
+def estilizar(scheme):
+    """Aplica un esquema de colores determinado"""
+    STYLES['keyword'] = __format(scheme.get('keyword', COLOR_SCHEME['keyword']))
+    STYLES['operator'] = __format(scheme.get('operator', COLOR_SCHEME['operator']))
+    #STYLES['brace'] = __format(scheme.get('brace', COLOR_SCHEME['brace']))
+    STYLES['definition'] = __format(scheme.get('definition', COLOR_SCHEME['definition']))
+    STYLES['string'] = __format(scheme.get('string', COLOR_SCHEME['string']))
+    STYLES['string2'] = __format(scheme.get('string2', COLOR_SCHEME['string2']))
+    STYLES['comment'] = __format(scheme.get('comment', COLOR_SCHEME['comment']))
+    STYLES['properObject'] = __format(scheme.get('properObject', COLOR_SCHEME['properObject']))
+    STYLES['numbers'] = __format(scheme.get('numbers', COLOR_SCHEME['numbers']))
+    #STYLES['spaces'] = __format(scheme.get('spaces', COLOR_SCHEME['spaces']))
+    #STYLES['extras'] = __format(scheme.get('extras', COLOR_SCHEME['extras']))

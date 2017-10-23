@@ -7,12 +7,12 @@ import os
 
 from PyQt5.QtWidgets import QPlainTextEdit
 
-#from PyQt5.QtGui import QPalette
-#from PyQt5.QtGui import QColor
+from PyQt5.QtGui import QPalette
+from PyQt5.QtGui import QColor
 #from PyQt5.QtGui import QFont
 #from PyQt5.QtGui import QTextCursor
 
-from Gui.Syntax.SyntaxHighlighter import SyntaxHighlighter
+from Gui.Syntax.PythonHighlighter import PythonHighlighter
 
 
 class TextEdit(QPlainTextEdit):
@@ -28,16 +28,15 @@ class TextEdit(QPlainTextEdit):
         super(TextEdit, self).__init__(parent)
 
         self.path = path
+        # FIXME: que tabulación siempre sean 4 espacios
 
-        '''
         #FIXME: Usaremos qss
         pal = QPalette()
         bgc = QColor(0, 0, 0)
         pal.setColor(QPalette.Base, bgc)
-        #textc = QColor(255, 255, 255)
-        #pal.setColor(QPalette.Text, textc)
+        textc = QColor(255, 255, 255)
+        pal.setColor(QPalette.Text, textc)
         self.setPalette(pal)
-        '''
 
         self.setLineWrapMode(QPlainTextEdit.NoWrap)
         #FIXME: Funciona en QTextEdit
@@ -63,6 +62,6 @@ class TextEdit(QPlainTextEdit):
             #self.setText("#!/usr/bin/python3\n# -*- coding: utf-8 -*-\n\n")
             self.setPlainText("#!/usr/bin/python3\n# -*- coding: utf-8 -*-\n\n")
 
-        self.syntaxHighlighter = SyntaxHighlighter(self.document())
+        self.syntaxHighlighter = PythonHighlighter(self.document())
 
         #self.selectAll()
