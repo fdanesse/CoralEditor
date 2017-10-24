@@ -32,7 +32,7 @@ class TextEdit(QPlainTextEdit):
 
         #FIXME: Usaremos qss
         pal = QPalette()
-        bgc = QColor(0, 0, 0)
+        bgc = QColor(39, 40, 34)
         pal.setColor(QPalette.Base, bgc)
         textc = QColor(255, 255, 255)
         pal.setColor(QPalette.Text, textc)
