@@ -12,6 +12,7 @@ class PythonHighlighter(QSyntaxHighlighter):
     # http://doc.qt.io/qt-5/qsyntaxhighlighter.html
     # http://doc.qt.io/qt-5/qregexp.html
     # https://wiki.python.org/moin/PyQt/Python%20syntax%20highlighting
+    # http://ninja-ide.github.io/ninja-ide/listings/ninja_ide/gui/editor/highlighter.py.html
 
     def __init__(self, document):
         QSyntaxHighlighter.__init__(self, document)
@@ -52,7 +53,4 @@ class PythonHighlighter(QSyntaxHighlighter):
             self.setFormat(start, length, style)
             start = delimiter.indexIn(text, start + length)
 
-        if self.currentBlockState() == in_state:
-            return True
-        else:
-            return False
+        return self.currentBlockState() == in_state
