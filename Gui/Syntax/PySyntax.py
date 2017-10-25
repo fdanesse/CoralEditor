@@ -25,6 +25,7 @@ COLOR_SCHEME = {
     "keyword": "#c9264c",
     "operator": "#c9264c",
     "definition": "#a4de2d",
+    "definition2": "cyan",
     "string": "#d8d170",
     "string2": "#ff9dc6",
     "comment": "gray",
@@ -36,6 +37,7 @@ STYLES = {
     'keyword': __format(COLOR_SCHEME['keyword']),
     'operator': __format(COLOR_SCHEME['operator']),
     'definition': __format(COLOR_SCHEME['definition']),
+    'definition2': __format(COLOR_SCHEME['definition2']),
     'string': __format(COLOR_SCHEME['string']),
     'string2': __format(COLOR_SCHEME['string2']),
     'comment': __format(COLOR_SCHEME['comment']),
@@ -46,6 +48,7 @@ STYLES = {
 SYNTAX = {
     'comment': ['#'],
     'definition': ['def', 'class', 'super'],
+    'definition2': ['def', 'class', 'super'],
     'string': ["'", '"'],
     'properObject': ['self'],
     'operators': ['=', '==', '!=', '<', '<=', '>', '>=', '\\+', '-', '\\*',
@@ -65,12 +68,9 @@ RULES = []
 RULES.extend([(r'\b%s\b' % w, 0, STYLES['keyword']) for w in SYNTAX.get('keywords', [])])
 RULES.extend([(r'%s' % w, 0, STYLES['operator']) for w in SYNTAX.get('operators', [])])
 RULES.extend([(r'\b%s\b' % w, 0, STYLES['properObject']) for w in SYNTAX.get('properObject', [])])
-
-definition = SYNTAX.get('definition', [])
-for de in definition:
-    expr = '\\b' + de + '\\b\\s*(\\w+)'
-    RULES.append((expr, 0, STYLES['definition']))
-    #FIXME: def, class, super ¿Por qué 1?
+#Nombres de clases o función
+RULES.extend([(r'\b%s\b\s*(\w+)' % w, 1, STYLES['definition']) for w in SYNTAX.get('definition', [])])
+RULES.extend([(r'\b%s\b\s' % w, 0, STYLES['definition2']) for w in SYNTAX.get('definition2', [])])
 
 # Numeric literals # r fuerza a que las secuencias de escape no sean interpretadas
 RULES.extend([
@@ -88,3 +88,5 @@ for sc in SYNTAX['string']:
     expr = r'"[^"\\]*(\\.[^"\\]*)*"' if sc == '"' \
         else r"'[^'\\]*(\\.[^'\\]*)*'"
     RULES.append((expr, 0, STYLES['string']))
+
+RULES = [(QRegExp(pat), index, fmt) for (pat, index, fmt) in RULES]
