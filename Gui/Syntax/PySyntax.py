@@ -33,7 +33,7 @@ STYLES = {
     }
 
 SYNTAX = {
-    'comment': ['#'],
+    'comment': ['#[^\n]*'],
     'definition': ['def', 'class', 'super'],
     'string': ["'", '"'],
     'properObject': ['self'],
@@ -44,7 +44,7 @@ SYNTAX = {
         'del', 'elif', 'else', 'except', 'exec', 'finally', 'for', 'from',
         'global', 'if', 'import', 'in', 'is', 'lambda', 'not', 'or', 'pass',
         'print', 'raise', 'return', 'try', 'while', 'yield',
-        'None', 'True', 'False']
+        'None', 'True', 'False'],
     }
 
 tri_single = (QRegExp("'''"), 1, STYLES['string2'])
@@ -54,8 +54,9 @@ RULES = []
 RULES.extend([(r'\b%s\b' % w, 0, STYLES['keyword']) for w in SYNTAX['keywords']])
 RULES.extend([(r'%s' % w, 0, STYLES['operator']) for w in SYNTAX['operators']])
 RULES.extend([(r'\b%s\b' % w, 0, STYLES['properObject']) for w in SYNTAX['properObject']])
-#Nombres de clase o función
+# Nombres de clase o función
 RULES.extend([(r'\b%s\b\s*(\w+)' % w, 1, STYLES['definition']) for w in SYNTAX['definition']])
+# def, class, super
 RULES.extend([(r'\b%s\b\s' % w, 0, STYLES['definition2']) for w in SYNTAX['definition']])
 
 # Numeric literals # r fuerza a que las secuencias de escape no sean interpretadas
@@ -66,13 +67,10 @@ RULES.extend([
     STYLES['numbers']),
 ])
 
-for co in SYNTAX['comment']:
-    expr = co + '[^\\n]*'
-    RULES.append((expr, 0, STYLES['comment']))
+RULES.extend([(r'%s' % w, 0, STYLES['comment']) for w in SYNTAX['comment']])
 
 for sc in SYNTAX['string']:
-    expr = r'"[^"\\]*(\\.[^"\\]*)*"' if sc == '"' \
-        else r"'[^'\\]*(\\.[^'\\]*)*'"
+    expr = r'"[^"\\]*(\\.[^"\\]*)*"' if sc == '"' else r"'[^'\\]*(\\.[^'\\]*)*'"
     RULES.append((expr, 0, STYLES['string']))
 
 RULES = [(QRegExp(pat), index, fmt) for (pat, index, fmt) in RULES]

@@ -11,6 +11,7 @@ from Gui.Syntax.PySyntax import RULES
 class PythonHighlighter(QSyntaxHighlighter):
     # http://doc.qt.io/qt-5/qsyntaxhighlighter.html
     # http://doc.qt.io/qt-5/qregexp.html
+    # https://wiki.python.org/moin/PyQt/Python%20syntax%20highlighting
 
     def __init__(self, document):
         QSyntaxHighlighter.__init__(self, document)
@@ -23,13 +24,14 @@ class PythonHighlighter(QSyntaxHighlighter):
                 length = len(expression.cap(nth))
                 # text[index:length]) == expression.cap(nth)
                 self.setFormat(index, length, form)
+
                 index = expression.indexIn(text, index + length)
 
         self.setCurrentBlockState(0)
         
         in_multiline = self.match_multiline(text, *tri_single)
         if not in_multiline:
-            in_multiline = self.match_multiline(text, *tri_double)
+            self.match_multiline(text, *tri_double)
 
     def match_multiline(self, text, delimiter, in_state, style):
         if self.previousBlockState() == in_state:
