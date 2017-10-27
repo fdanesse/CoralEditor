@@ -7,6 +7,8 @@ from PyQt5.QtGui import QFont
 from PyQt5.QtCore import QRegExp
 
 #FIXME: faltan reglas para funciones, por ejemplo range()
+#FIXME: los string multilineas no funcionan (ej. x = """...""")
+#FIXME: en python se permiten espacios entre comillas multiples " " "
 
 
 def __format(color, style=''):
@@ -47,8 +49,8 @@ SYNTAX = {
         'None', 'True', 'False'],
     }
 
-tri_single = (QRegExp("'''"), 1, STYLES['string2'])
-tri_double = (QRegExp('"""'), 2, STYLES['string2'])
+tri_single = (QRegExp("(\"{3})"), 1, STYLES['string2'])
+tri_double = (QRegExp('(\'{3})'), 2, STYLES['string2'])
 
 RULES = []
 RULES.extend([(r'\b%s\b' % w, 0, STYLES['keyword']) for w in SYNTAX['keywords']])
