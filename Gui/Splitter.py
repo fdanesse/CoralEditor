@@ -2,9 +2,10 @@
 # -*- coding: utf-8 -*-
 
 from PyQt5.QtWidgets import QSplitter
-from PyQt5.QtWidgets import QTreeView
 
 from Gui.TabWidget import TabWidget
+from Gui.CodeInspector import CodeInspector
+from Gui.Tools import Tools
 
 
 class Splitter(QSplitter):
@@ -13,11 +14,12 @@ class Splitter(QSplitter):
         QSplitter.__init__(self, parent)
 
         self.parent = parent
+       
+        codeInspector = CodeInspector(self)
+        self.addWidget(codeInspector)
 
-        treeview = QTreeView(self)
         self.tabwidget = TabWidget(self)
-        self.addWidget(treeview)
         self.addWidget(self.tabwidget)
 
-        treeview = QTreeView(self)
-        self.addWidget(treeview)
+        tools = Tools(self)
+        self.addWidget(tools)
