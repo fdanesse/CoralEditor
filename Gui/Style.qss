@@ -1,5 +1,6 @@
 
 
-WindowAyuda, Tools{
+WindowAyuda, QStatusBar, QScrollArea, QTreeView,
+Tools *, CodeInspector *{
     background-color: "#006680";
 }
