@@ -17,7 +17,7 @@ from PyQt5.QtGui import QTextCharFormat
 from PyQt5.QtGui import QKeyEvent
 #from PyQt5.QtGui import QTextCursor
 
-from Gui.Syntax.PythonHighlighter import PythonHighlighter
+#from Gui.Syntax.PythonHighlighter import PythonHighlighter
 
 
 class TextEdit(QPlainTextEdit):
@@ -67,6 +67,7 @@ class TextEdit(QPlainTextEdit):
         #self.setTabStopWidth(4)
         self.setCursorWidth(5)
         self.setCurrentCharFormat(charFormat)
+        #print(self.document().defaultTextOption())
 
         #FIXME: Usaremos qss
         pal = QPalette()
@@ -86,33 +87,42 @@ class TextEdit(QPlainTextEdit):
         #cursor.movePosition(QTextCursor.End)
         #self.setDocumentTitle("Coso")
 
-        if os.path.exists(self.path):
-            file = open(self.path, 'r')
-            with file:
-                data = file.read()
-                #FIXME: Corregir codigo al abrir ?
-                self.setPlainText(data)
-        else:
-            #self.setText("#!/usr/bin/python3\n# -*- coding: utf-8 -*-\n\n")
-            self.setPlainText("#!/usr/bin/python3\n# -*- coding: utf-8 -*-\n\n")
-
         #self.syntaxHighlighter = PythonHighlighter(self.document())
-
-        #self.selectAll()
 
         # Señales
         #self.blockCountChanged.connect(self.__newBlock)
-        #self.copyAvailable.connect((bool yes)
         #self.cursorPositionChanged.connect(()
-        #self.modificationChanged.connect(self.__chanedModification)
-        #self.redoAvailable.connect((bool available)
         #self.selectionChanged.connect(()
         #self.textChanged.connect(self.__changedText)
-        #self.undoAvailable.connect((bool available)
         #self.updateRequest.connect((const QRect &rect, int dy)
+        self.modificationChanged.connect(self.__chanedModification)
+        
+        self.copyAvailable.connect(self.__copyAvailable)
+        self.undoAvailable.connect(self.__undoAvailable)
+        self.redoAvailable.connect(self.__redoAvailable)
 
-        #print(self.document().defaultTextOption())
+        if os.path.exists(self.path):
+            file = open(self.path, 'r')
+            data = file.read()
+            texto = self.__limpiar_codigo(data)
+            self.setPlainText(texto)
+            #self.document().setModified(data != texto)
+            if data != texto:
+                print("El texto fue corregido al abrir el archivo.")
+        else:
+            self.setPlainText("#!/usr/bin/python3\n# -*- coding: utf-8 -*-\n\n")
+            #self.document().setModified(True)
+
         self.setFocus()
+
+    def __copyAvailable(self, available):
+        print("Copy:", available)
+
+    def __undoAvailable(self, available):
+        print("Undo:", available)
+
+    def __redoAvailable(self, available):
+        print("Redo:", available)
 
     def keyPressEvent(self, event):
         # https://doc.qt.io/qt-5/qt.html#Key-enum
@@ -120,8 +130,8 @@ class TextEdit(QPlainTextEdit):
             event.ignore()
             event.accept = True
             for x in range(0, 4):
-                newevent = QKeyEvent(QEvent.KeyPress, Qt.Key_Space, Qt.NoModifier,
-                    text=" ", autorep=False, count=1)
+                newevent = QKeyEvent(QEvent.KeyPress, Qt.Key_Space,
+                    Qt.NoModifier, text=" ", autorep=False, count=1)
                 QApplication.postEvent(self, newevent)
         else:
             super(TextEdit, self).keyPressEvent(event)
@@ -137,27 +147,16 @@ class TextEdit(QPlainTextEdit):
         text = self.__limpiar_codigo(text)
         #self.setPlainText(text)
         print(text, self.document().size())
+    '''
 
     def __chanedModification(self, changed):
-        #print(changed)
-        #self.setModified(False)
-
+        print("Document changed:", changed)
+        
     def __limpiar_codigo(self, texto):
-        # Cuando se abre o guarda un archivo, se limpia el código en él.
         limpio = ""
         for line in texto.splitlines():
-            # Eliminar espacios al final de la linea y en lineas vacías.
             text_line = "%s\n" % (line.rstrip())
-            # Cambiar Tabulaciones por 4 espacios
-            ret = []
-            for l in text_line:
-                x = l
-                if ord("\t") == ord(l):
-                    x = "    "
-                ret.append(x)
-            text_line = ""
+            ret = text_line.replace("\t", "    ")
             for l in ret:
-                text_line = "%s%s" % (text_line, l)
-            limpio = "%s%s" % (limpio, text_line)
+                limpio = "%s%s" % (limpio, l)
         return limpio
-    '''
