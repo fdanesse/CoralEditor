@@ -57,9 +57,9 @@ RULES.extend([(r'\b%s\b' % w, 0, STYLES['keyword']) for w in SYNTAX['keywords']]
 RULES.extend([(r'%s' % w, 0, STYLES['operator']) for w in SYNTAX['operators']])
 RULES.extend([(r'\b%s\b' % w, 0, STYLES['properObject']) for w in SYNTAX['properObject']])
 # Nombres de clase o función
-RULES.extend([(r'\b%s\b\s*(\w+)' % w, 1, STYLES['definition']) for w in SYNTAX['definition']])
+RULES.extend([(r'\b%s\b\s+(\w+)' % w, 1, STYLES['definition']) for w in SYNTAX['definition']])
 # def, class, super
-RULES.extend([(r'\b%s\b\s' % w, 0, STYLES['definition2']) for w in SYNTAX['definition']])
+RULES.extend([(r'\b%s\b\s*' % w, 0, STYLES['definition2']) for w in SYNTAX['definition']])
 
 # Numeric literals # r fuerza a que las secuencias de escape no sean interpretadas
 RULES.extend([

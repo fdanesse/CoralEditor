@@ -3,13 +3,18 @@
 
 import os
 
-#from PyQt5.QtCore import Qt
+from PyQt5.QtCore import Qt
+from PyQt5.QtCore import QEvent
 
 from PyQt5.QtWidgets import QPlainTextEdit
+from PyQt5.QtWidgets import QApplication
 
 from PyQt5.QtGui import QPalette
 from PyQt5.QtGui import QColor
-#from PyQt5.QtGui import QFont
+from PyQt5.QtGui import QFont
+from PyQt5.QtGui import QFontMetrics
+from PyQt5.QtGui import QTextCharFormat
+from PyQt5.QtGui import QKeyEvent
 #from PyQt5.QtGui import QTextCursor
 
 from Gui.Syntax.PythonHighlighter import PythonHighlighter
@@ -22,13 +27,46 @@ class TextEdit(QPlainTextEdit):
     # http://ftp.ics.uci.edu/pub/centos0/ics-custom-build/BUILD/PyQt-x11-gpl-4.7.2/doc/html/qtextedit.html
     # http://nullege.com/codes/show/src@p@y@pyqt5-HEAD@examples@tools@customcompleter@customcompleter.py/92/PyQt5.QtWidgets.QTextEdit.textCursor
     # http://nullege.com/codes/show/src@p@y@pyqt5-HEAD@examples@richtext@textedit@textedit.py/87/PyQt5.QtWidgets.QTextEdit.setFocus
-
+    # Ejemplos:
+    #   https://stackoverflow.com/questions/31610351/qplaintextedit-thinks-its-modified-if-it-has-an-empty-text
+    #   https://john.nachtimwald.com/2009/08/19/better-qplaintextedit-with-line-numbers/
+    #   https://github.com/Werkov/PyQt4/blob/master/examples/demos/textedit/textedit.py
+    
     def __init__(self, parent, path=""):
         #super().__init__()
         super(TextEdit, self).__init__(parent)
 
         self.path = path
-        # FIXME: que tabulación siempre sean 4 espacios
+        
+        font = QFont("Monospace", 8)  #QFont()
+        #font.setFamily("Monospace")
+        font.setStyleHint(QFont.Monospace)
+        font.setStyle(QFont.StyleNormal)
+        font.setStyleStrategy(QFont.PreferDefault)
+        font.setWeight(QFont.ExtraLight)
+        font.setCapitalization(QFont.MixedCase)
+        font.setHintingPreference(QFont.PreferDefaultHinting)
+        font.setLetterSpacing(QFont.PercentageSpacing, 100.0)
+        font.setStretch(QFont.AnyStretch)
+
+        font.setBold(False)
+        font.setFixedPitch(True)
+        font.setItalic(False)
+        font.setKerning(True)
+        font.setOverline(False)  # sobrelinea
+        #font.setPixelSize(8) #font.setPointSize(8) font.setPointSizeF(8)
+        font.setStrikeOut(False)  # tachado
+        #font.setStyleName()
+        font.setUnderline(False)
+        #font.setWordSpacing(1)
+        print(font.toString())
+
+        charFormat = QTextCharFormat()
+        charFormat.setFont(font)
+
+        #self.setTabStopWidth(4)
+        self.setCursorWidth(5)
+        self.setCurrentCharFormat(charFormat)
 
         #FIXME: Usaremos qss
         pal = QPalette()
@@ -39,15 +77,11 @@ class TextEdit(QPlainTextEdit):
         self.setPalette(pal)
 
         self.setLineWrapMode(QPlainTextEdit.NoWrap)
-        #FIXME: Funciona en QTextEdit
-        #self.setCurrentFont(QFont("Monospace", 8))
-        #self.setFontPointSize(8)
+
         #self.setTextBackgroundColor(QColor(0, 255, 255))
         #self.setTextColor(QColor(0, 255, 255))
         #self.setFontWeight(QFont.Normal)
 
-        #self.setTabStopWidth(4)
-        #self.setFocus()
         #cursor = self.textCursor()
         #cursor.movePosition(QTextCursor.End)
         #self.setDocumentTitle("Coso")
@@ -62,6 +96,68 @@ class TextEdit(QPlainTextEdit):
             #self.setText("#!/usr/bin/python3\n# -*- coding: utf-8 -*-\n\n")
             self.setPlainText("#!/usr/bin/python3\n# -*- coding: utf-8 -*-\n\n")
 
-        self.syntaxHighlighter = PythonHighlighter(self.document())
+        #self.syntaxHighlighter = PythonHighlighter(self.document())
 
         #self.selectAll()
+
+        # Señales
+        #self.blockCountChanged.connect(self.__newBlock)
+        #self.copyAvailable.connect((bool yes)
+        #self.cursorPositionChanged.connect(()
+        #self.modificationChanged.connect(self.__chanedModification)
+        #self.redoAvailable.connect((bool available)
+        #self.selectionChanged.connect(()
+        #self.textChanged.connect(self.__changedText)
+        #self.undoAvailable.connect((bool available)
+        #self.updateRequest.connect((const QRect &rect, int dy)
+
+        #print(self.document().defaultTextOption())
+        self.setFocus()
+
+    def keyPressEvent(self, event):
+        # https://doc.qt.io/qt-5/qt.html#Key-enum
+        if event.key() == Qt.Key_Tab:
+            event.ignore()
+            event.accept = True
+            for x in range(0, 4):
+                newevent = QKeyEvent(QEvent.KeyPress, Qt.Key_Space, Qt.NoModifier,
+                    text=" ", autorep=False, count=1)
+                QApplication.postEvent(self, newevent)
+        else:
+            super(TextEdit, self).keyPressEvent(event)
+            event.accept = True
+        self.setFocus()
+
+    '''
+    def __newBlock(self, newBlockCount):
+        #print(newBlockCount)
+
+    def __changedText(self):
+        text = self.document().toPlainText()
+        text = self.__limpiar_codigo(text)
+        #self.setPlainText(text)
+        print(text, self.document().size())
+
+    def __chanedModification(self, changed):
+        #print(changed)
+        #self.setModified(False)
+
+    def __limpiar_codigo(self, texto):
+        # Cuando se abre o guarda un archivo, se limpia el código en él.
+        limpio = ""
+        for line in texto.splitlines():
+            # Eliminar espacios al final de la linea y en lineas vacías.
+            text_line = "%s\n" % (line.rstrip())
+            # Cambiar Tabulaciones por 4 espacios
+            ret = []
+            for l in text_line:
+                x = l
+                if ord("\t") == ord(l):
+                    x = "    "
+                ret.append(x)
+            text_line = ""
+            for l in ret:
+                text_line = "%s%s" % (text_line, l)
+            limpio = "%s%s" % (limpio, text_line)
+        return limpio
+    '''
