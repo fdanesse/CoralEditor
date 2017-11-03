@@ -3,12 +3,8 @@
 
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QMenu
-from PyQt5.QtWidgets import QLineEdit
-from PyQt5.QtWidgets import QHBoxLayout
-from PyQt5.QtWidgets import QWidget
 from PyQt5.QtWidgets import QWidget
 from PyQt5.QtWidgets import QAction
-#from PyQt5.QtGui import QIcon
 
 
 class MenuAyuda(QMenu):
@@ -58,7 +54,7 @@ class WindowAyuda(QWidget):
         # http://doc.qt.io/qt-5/qt.html#WindowType-enum
         self.setWindowFlags(Qt.Tool)  #Qt.Window | Qt.WindowStaysOnTopHint
         #self.activateWindow()
+        # FIXME: Cambiar por dimensiones de pantalla
         self.setGeometry(w-(w/3),0,w/3,h)
         #self.resize(300, 300)
-        #self.setCentralWidget()
         self.setWindowTitle("Ayuda")
