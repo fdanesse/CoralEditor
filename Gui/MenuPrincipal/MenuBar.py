@@ -3,7 +3,11 @@
 
 from PyQt5.QtWidgets import QMenuBar
 
-from Gui.MenuArchivo import MenuArchivo
+from Gui.MenuPrincipal.MenuArchivo import MenuArchivo
+from Gui.MenuPrincipal.MenuEdicion import MenuEdicion
+from Gui.MenuPrincipal.MenuVer import MenuVer
+from Gui.MenuPrincipal.MenuCodigo import MenuCodigo
+from Gui.MenuPrincipal.MenuAyuda import MenuAyuda
 
 
 class MenuBar(QMenuBar):
@@ -12,4 +16,15 @@ class MenuBar(QMenuBar):
 
         QMenuBar.__init__(self)
 
-        self.addMenu(MenuArchivo(parent))
+        self.parent = parent
+
+        self.menu_archivo = MenuArchivo(self)
+        self.addMenu(self.menu_archivo)
+        self.menu_edicion = MenuEdicion(self)
+        self.menu_edicion.setEnabled(False)
+        self.addMenu(self.menu_edicion)
+        self.addMenu(MenuVer(self))
+        self.menu_codigo = MenuCodigo(self)
+        self.menu_codigo.setEnabled(False)
+        self.addMenu(self.menu_codigo)
+        self.addMenu(MenuAyuda(self))

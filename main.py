@@ -17,12 +17,7 @@ from PyQt5.QtWidgets import QFileDialog
 
 from PyQt5.QtGui import QIcon
 
-from Gui.MenuPrincipal.MenuArchivo import MenuArchivo
-from Gui.MenuPrincipal.MenuEdicion import MenuEdicion
-from Gui.MenuPrincipal.MenuVer import MenuVer
-from Gui.MenuPrincipal.MenuCodigo import MenuCodigo
-from Gui.MenuPrincipal.MenuAyuda import MenuAyuda
-
+from Gui.MenuPrincipal.MenuBar import MenuBar
 from Gui.ToolbarPrincipal import Toolbar
 from Gui.Splitter import Splitter
 
@@ -41,36 +36,22 @@ class Coral(QMainWindow):  #Coral(QWidget):  #A widget with no parent is called 
         self.setWindowTitle('Coral Editor')
         self.setWindowIcon(QIcon('Iconos/coraleditor.png'))
 
-        self.statusBar().showMessage('Ready')  #self.statusBar()
-        
-        self.menuBar = self.menuBar()
-        menu_archivo = MenuArchivo(self)
-        self.menuBar.addMenu(menu_archivo)
-        menu_edicion = MenuEdicion(self)
-        menu_edicion.setEnabled(False)
-        self.menuBar.addMenu(menu_edicion)
-        self.menuBar.addMenu(MenuVer(self))
-        menu_codigo = MenuCodigo(self)
-        menu_codigo.setEnabled(False)
-        self.menuBar.addMenu(menu_codigo)
-        self.menuBar.addMenu(MenuAyuda(self))
-
-        toolbar = Toolbar(self)
-        self.addToolBar(QtCore.Qt.LeftToolBarArea, toolbar)
-
+        self.setMenuBar(MenuBar(self))
+        self.toolbar = Toolbar(self)
+        self.addToolBar(QtCore.Qt.LeftToolBarArea, self.toolbar)
         self.splitter = Splitter(self)
         self.setCentralWidget(self.splitter)
+        self.statusBar().showMessage('Ready')
 
         self.showMaximized()  #self.setWindowState(QtCore.Qt.WindowMaximized)
 
         #area = QMdiArea()  # para aplicaciones con subventanas
 
-        menu_archivo.sig.new_file.connect(self.new_file)
-        menu_archivo.sig.open_file.connect(self.showDialog_open_file)
+        self.menuBar().menu_archivo.sig.new_file.connect(self.new_file)
+        self.menuBar().menu_archivo.sig.open_file.connect(self.showDialog_open_file)
 
-        toolbar.sig.new_file.connect(self.new_file)
-        toolbar.sig.open_file.connect(self.showDialog_open_file)
-        #toolbar.sig.myclick.connect(self.close)
+        self.toolbar.sig.new_file.connect(self.new_file)
+        self.toolbar.sig.open_file.connect(self.showDialog_open_file)
 
         print("Coral process:", os.getpid())
     
