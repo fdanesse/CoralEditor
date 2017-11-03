@@ -36,7 +36,9 @@ class TabWidget(QTabWidget):
         #FIXME: Asegurar siempre al menos un archivo abierto?
 
     def tab_change(self, index):
-        print("TabChange", index)
+        #FIXME: Se recogeran datos para actualizar toolbar y menu
+        tab = self.widget(index).widget()
+        status = tab.getStatus()
 
     def new_file(self, path=""):
         label = "Sin Nombre"

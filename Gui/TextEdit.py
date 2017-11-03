@@ -96,7 +96,7 @@ class TextEdit(QPlainTextEdit):
         #self.textChanged.connect(self.__changedText)
         #self.updateRequest.connect((const QRect &rect, int dy)
         self.modificationChanged.connect(self.__chanedModification)
-        
+
         self.copyAvailable.connect(self.__copyAvailable)
         self.undoAvailable.connect(self.__undoAvailable)
         self.redoAvailable.connect(self.__redoAvailable)
@@ -106,14 +106,21 @@ class TextEdit(QPlainTextEdit):
             data = file.read()
             texto = self.__limpiar_codigo(data)
             self.setPlainText(texto)
-            #self.document().setModified(data != texto)
+            self.document().setModified(data != texto)
             if data != texto:
                 print("El texto fue corregido al abrir el archivo.")
         else:
             self.setPlainText("#!/usr/bin/python3\n# -*- coding: utf-8 -*-\n\n")
-            #self.document().setModified(True)
+            self.document().setModified(True)
 
         self.setFocus()
+
+    def getStatus(self):
+        print("Devolver Datos")
+        print("Paste:", self.canPaste())
+        print("Modified:", self.document().isModified())
+        print("Redo:", self.document().isRedoAvailable())
+        print("Undo:", self.document().isUndoAvailable())
 
     def __copyAvailable(self, available):
         print("Copy:", available)

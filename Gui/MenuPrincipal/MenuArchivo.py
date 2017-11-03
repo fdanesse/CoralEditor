@@ -43,10 +43,12 @@ class MenuArchivo(QMenu):
         item = QAction(QIcon('Iconos/document-save.png'), 'Guardar', self)
         item.setShortcut('Ctrl+S')
         item.triggered.connect(self.sig.save_file.emit)
+        item.setEnabled(False)
         self.addAction(item)
 
         item = QAction(QIcon('Iconos/document-save-as.png'), 'Guardar Como...', self)
         item.triggered.connect(self.sig.save_file_as.emit)
+        item.setEnabled(False)
         self.addAction(item)
 
         '''
