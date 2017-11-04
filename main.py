@@ -36,7 +36,8 @@ class Coral(QMainWindow):  #Coral(QWidget):  #A widget with no parent is called 
         self.setWindowTitle('Coral Editor')
         self.setWindowIcon(QIcon('Iconos/coraleditor.png'))
 
-        self.setMenuBar(MenuBar(self))
+        self.menubar = MenuBar(self)
+        self.setMenuBar(self.menubar)
         self.toolbar = Toolbar(self)
         self.addToolBar(QtCore.Qt.LeftToolBarArea, self.toolbar)
         self.splitter = Splitter(self)
@@ -47,8 +48,8 @@ class Coral(QMainWindow):  #Coral(QWidget):  #A widget with no parent is called 
 
         #area = QMdiArea()  # para aplicaciones con subventanas
 
-        self.menuBar().menu_archivo.sig.new_file.connect(self.new_file)
-        self.menuBar().menu_archivo.sig.open_file.connect(self.showDialog_open_file)
+        self.menubar.menu_archivo.sig.new_file.connect(self.new_file)
+        self.menubar.menu_archivo.sig.open_file.connect(self.showDialog_open_file)
 
         self.toolbar.sig.new_file.connect(self.new_file)
         self.toolbar.sig.open_file.connect(self.showDialog_open_file)

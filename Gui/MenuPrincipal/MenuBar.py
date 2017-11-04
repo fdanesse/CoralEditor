@@ -28,3 +28,19 @@ class MenuBar(QMenuBar):
         self.menu_codigo.setEnabled(False)
         self.addMenu(self.menu_codigo)
         self.addMenu(MenuAyuda(self))
+
+    def setFilesTabs(self, tabs):
+        self.menu_edicion.setEnabled(tabs)
+        self.menu_codigo.setEnabled(tabs)
+        self.menu_archivo.setFilesTabs(tabs)
+
+    def setStatus(self, status):
+        paste = status.get("paste", True)
+        undo = status.get("undo", True)
+        redo = status.get("redo", True)
+        modified = status.get("modified", True)
+        #FIXME: Implementar canCopy()
+
+        self.menu_archivo.setStatus(modified)
+        self.menu_edicion.setStatus(paste, undo, redo)
+        # FIXME: en menu_edicion seleccionar se activa si hay archivo con texto y sin seleccionar

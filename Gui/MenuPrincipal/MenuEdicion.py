@@ -12,30 +12,46 @@ class MenuEdicion(QMenu):
     def __init__(self, parent):
         QMenu.__init__(self, "&Edición", parent)
 
-        item = QAction(QIcon('Iconos/edit-undo.png'), 'Deshacer', self)
-        item.setShortcut('Ctrl+Z')
-        self.addAction(item)
+        self.undo = QAction(QIcon(
+            'Iconos/edit-undo.png'), 'Deshacer', self)
+        self.undo.setShortcut('Ctrl+Z')
+        self.undo.setEnabled(False)
+        self.addAction(self.undo)
 
-        item = QAction(QIcon('Iconos/edit-redo.png'), 'Rehacer', self)
-        item.setShortcut('Ctrl+R')
-        self.addAction(item)
+        self.redo = QAction(QIcon(
+            'Iconos/edit-redo.png'), 'Rehacer', self)
+        self.redo.setShortcut('Ctrl+R')
+        self.redo.setEnabled(False)
+        self.addAction(self.redo)
 
         self.addSeparator()
 
-        item = QAction('Copiar', self)
-        item.setShortcut('Ctrl+C')
-        self.addAction(item)
+        self.copiar = QAction('Copiar', self)
+        self.copiar.setShortcut('Ctrl+C')
+        self.copiar.setEnabled(False)
+        self.addAction(self.copiar)
 
-        item = QAction('Cortar', self)
-        item.setShortcut('Ctrl+X')
-        self.addAction(item)
+        self.cortar = QAction('Cortar', self)
+        self.cortar.setShortcut('Ctrl+X')
+        self.cortar.setEnabled(False)
+        self.addAction(self.cortar)
 
-        item = QAction('Pegar', self)
-        item.setShortcut('Ctrl+V')
-        self.addAction(item)
+        self.pegar = QAction('Pegar', self)
+        self.pegar.setShortcut('Ctrl+V')
+        self.pegar.setEnabled(False)
+        self.addAction(self.pegar)
 
         self.addSeparator()
         
-        item = QAction(QIcon('Iconos/edit-select-all.png'), 'Seleccionar Todo', self)
-        item.setShortcut('Ctrl+A')
-        self.addAction(item)
+        self.seleccionar = QAction(QIcon(
+            'Iconos/edit-select-all.png'),
+            'Seleccionar Todo', self)
+        self.seleccionar.setShortcut('Ctrl+A')
+        self.seleccionar.setEnabled(False)
+        self.addAction(self.seleccionar)
+
+    def setStatus(self, paste, undo, redo):
+        self.pegar.setEnabled(paste)  #FIXME: desactivado si textwidget no tiene el cursor activo
+        self.undo.setEnabled(undo)
+        self.redo.setEnabled(redo)
+        #FIXME: falta copiar, cortar y seleccionar todo

@@ -99,3 +99,10 @@ class Toolbar(QToolBar):
             'Buscar...', self)
         item.setEnabled(False)
         self.addAction(item)
+
+    def setFilesTabs(self, tabs):
+        pass
+        # FIXME: hay o no un tab de archivo ?
+        
+    def setStatus(self, status):
+        pass

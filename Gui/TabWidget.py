@@ -20,25 +20,33 @@ class TabWidget(QTabWidget):
     def __init__(self, parent):
         super(TabWidget, self).__init__(parent)
 
+        self.parent = parent
+
         self.tabBarAutoHide()
         self.setTabsClosable(True)
         self.setMovable(True)
         self.setTabShape(1)
 
-        self.tabCloseRequested.connect(self.close_click)
-        self.currentChanged.connect(self.tab_change)
+        self.tabCloseRequested.connect(self.__tab_close)
+        self.currentChanged.connect(self.__tab_changed)
         
-    def close_click(self, index):
+    def __tab_close(self, index):
         widget = self.widget(index)
         self.removeTab(index)
         del(widget)
         #FIXME: Verificar archivo guardado
-        #FIXME: Asegurar siempre al menos un archivo abierto?
 
-    def tab_change(self, index):
-        #FIXME: Se recogeran datos para actualizar toolbar y menu
-        tab = self.widget(index).widget()
-        status = tab.getStatus()
+    def __tab_changed(self, index):
+        if index > -1:
+            tab = self.widget(index).widget()
+            status = tab.getStatus()
+            self.parent.parent.toolbar.setStatus(status)
+            self.parent.parent.menubar.setStatus(status)
+            print(status)
+        #FIXME: Asegurar siempre al menos un archivo abierto?
+        tabs = bool(self.count())
+        self.parent.parent.menubar.setFilesTabs(tabs)
+        self.parent.parent.toolbar.setFilesTabs(tabs)
 
     def new_file(self, path=""):
         label = "Sin Nombre"
@@ -50,7 +58,10 @@ class TabWidget(QTabWidget):
         scrollarea.setWidgetResizable(True)
         textEdit = TextEdit(scrollarea, path=path)
         scrollarea.setWidget(textEdit)
-        self.addTab(scrollarea, QIcon('Iconos/coraleditor.png'), label)
+        # FIXME: conectar señales de textEdit para actualizar toolbar y menu
+        self.addTab(scrollarea, QIcon(
+            'Iconos/coraleditor.png'), label)
         self.setCurrentIndex(self.count()-1)
+        
         #self.setTabToolTip(0, "Descripción corta")
         #self.setWhatsThis("Descripción Larga")

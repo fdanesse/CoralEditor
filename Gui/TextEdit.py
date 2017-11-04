@@ -36,6 +36,7 @@ class TextEdit(QPlainTextEdit):
         #super().__init__()
         super(TextEdit, self).__init__(parent)
 
+        self.parent = parent
         self.path = path
         
         font = QFont("Monospace", 8)  #QFont()
@@ -116,20 +117,29 @@ class TextEdit(QPlainTextEdit):
         self.setFocus()
 
     def getStatus(self):
-        print("Devolver Datos")
-        print("Paste:", self.canPaste())
-        print("Modified:", self.document().isModified())
-        print("Redo:", self.document().isRedoAvailable())
-        print("Undo:", self.document().isUndoAvailable())
+        """
+        El estado del documento se debe reflejar en la toolbar
+        y el menu principales.
+        """
+        return{
+            "paste": self.canPaste(),
+            "undo": self.document().isUndoAvailable(),
+            "redo": self.document().isRedoAvailable(),
+            "modified": self.document().isModified(),
+            #FIXME: Implementar canCopy()
+        }
 
     def __copyAvailable(self, available):
-        print("Copy:", available)
+        pass
+        #print("Copy:", available)
 
     def __undoAvailable(self, available):
-        print("Undo:", available)
+        pass
+        #print("Undo:", available)
 
     def __redoAvailable(self, available):
-        print("Redo:", available)
+        pass
+        #print("Redo:", available)
 
     def keyPressEvent(self, event):
         # https://doc.qt.io/qt-5/qt.html#Key-enum
@@ -157,7 +167,8 @@ class TextEdit(QPlainTextEdit):
     '''
 
     def __chanedModification(self, changed):
-        print("Document changed:", changed)
+        pass
+        #print("Document changed:", changed)
         
     def __limpiar_codigo(self, texto):
         limpio = ""

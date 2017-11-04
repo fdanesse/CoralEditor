@@ -25,35 +25,39 @@ class MenuArchivo(QMenu):
         QMenu.__init__(self, "&Archivo", parent)
 
         self.sig = Communicate()
-        self.parent = parent
+        #self.parent = parent
 
-        #QAction('Nuevo', self)
-        item = QAction(QIcon('Iconos/document-new.png'), 'Nuevo', self)
-        item.setShortcut('Ctrl+N')
-        item.triggered.connect(self.sig.new_file.emit)
-        self.addAction(item)
+        self.new = QAction(QIcon(
+            'Iconos/document-new.png'), 'Nuevo', self)
+        self.new.setShortcut('Ctrl+N')
+        self.new.triggered.connect(self.sig.new_file.emit)
+        self.addAction(self.new)
 
-        item = QAction(QIcon('Iconos/document-open.png'), 'Abrir...', self)
-        item.setShortcut('Ctrl+O')
-        item.triggered.connect(self.sig.open_file.emit)
-        self.addAction(item)
+        self.open = QAction(QIcon(
+            'Iconos/document-open.png'), 'Abrir...', self)
+        self.open.setShortcut('Ctrl+O')
+        self.open.triggered.connect(self.sig.open_file.emit)
+        self.addAction(self.open)
 
         self.addSeparator()
 
-        item = QAction(QIcon('Iconos/document-save.png'), 'Guardar', self)
-        item.setShortcut('Ctrl+S')
-        item.triggered.connect(self.sig.save_file.emit)
-        item.setEnabled(False)
-        self.addAction(item)
+        self.save = QAction(QIcon(
+            'Iconos/document-save.png'), 'Guardar', self)
+        self.save.setShortcut('Ctrl+S')
+        self.save.triggered.connect(self.sig.save_file.emit)
+        self.save.setEnabled(False)
+        self.addAction(self.save)
 
-        item = QAction(QIcon('Iconos/document-save-as.png'), 'Guardar Como...', self)
-        item.triggered.connect(self.sig.save_file_as.emit)
-        item.setEnabled(False)
-        self.addAction(item)
+        self.saveas = QAction(QIcon(
+            'Iconos/document-save-as.png'), 'Guardar Como...', self)
+        self.saveas.triggered.connect(self.sig.save_file_as.emit)
+        self.saveas.setEnabled(False)
+        self.addAction(self.saveas)
 
         '''
-        item = QAction('Salir', self)  #QAction(QIcon('Iconos/coraleditor.png'), '&Exit', self)
-        #item.triggered.connect(qApp.quit)
+        item = QAction('Salir', self)  #QAction(QIcon(
+            'Iconos/coraleditor.png'), '&Exit', self)
+        item.triggered.connect(qApp.quit)
         item.setShortcut('Ctrl+X')
         item.setStatusTip('Salir de la Aplicación')
         self.addAction(item)
@@ -64,6 +68,14 @@ class MenuArchivo(QMenu):
         item.triggered.connect(self.toggleMenu)
         self.addAction(item)
         '''
+
+    def setFilesTabs(self, tabs):
+        if not tabs:
+            self.save.setEnabled(tabs)
+        self.saveas.setEnabled(tabs)
+
+    def setStatus(self, modified):
+        self.save.setEnabled(modified)
 
     def toggleMenu(self, state):
         '''
