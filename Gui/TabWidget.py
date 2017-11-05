@@ -37,12 +37,15 @@ class TabWidget(QTabWidget):
         #FIXME: Verificar archivo guardado
 
     def __tab_changed(self, index):
+        """
+        Actualizar toolbar y menu principales.
+        index == -1 si no hay tab en tabwidget.
+        """
         if index > -1:
             tab = self.widget(index).widget()
             status = tab.getStatus()
             self.parent.parent.toolbar.setStatus(status)
             self.parent.parent.menubar.setStatus(status)
-            print(status)
         #FIXME: Asegurar siempre al menos un archivo abierto?
         tabs = bool(self.count())
         self.parent.parent.menubar.setFilesTabs(tabs)

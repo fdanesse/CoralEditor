@@ -90,6 +90,7 @@ class TextEdit(QPlainTextEdit):
 
         #self.syntaxHighlighter = PythonHighlighter(self.document())
 
+        self.canCopy = False
         # Señales
         #self.blockCountChanged.connect(self.__newBlock)
         #self.cursorPositionChanged.connect(()
@@ -126,12 +127,16 @@ class TextEdit(QPlainTextEdit):
             "undo": self.document().isUndoAvailable(),
             "redo": self.document().isRedoAvailable(),
             "modified": self.document().isModified(),
-            #FIXME: Implementar canCopy()
+            "copy": self.canCopy,
+            # FIXME: implementar selectedAll
         }
 
-    def __copyAvailable(self, available):
+    def __chanedModification(self, changed):
         pass
-        #print("Copy:", available)
+        #print("Document changed:", changed)
+
+    def __copyAvailable(self, available):
+        self.canCopy = available
 
     def __undoAvailable(self, available):
         pass
@@ -165,10 +170,6 @@ class TextEdit(QPlainTextEdit):
         #self.setPlainText(text)
         print(text, self.document().size())
     '''
-
-    def __chanedModification(self, changed):
-        pass
-        #print("Document changed:", changed)
         
     def __limpiar_codigo(self, texto):
         limpio = ""

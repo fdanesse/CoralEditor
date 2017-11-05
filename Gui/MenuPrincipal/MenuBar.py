@@ -30,17 +30,29 @@ class MenuBar(QMenuBar):
         self.addMenu(MenuAyuda(self))
 
     def setFilesTabs(self, tabs):
+        """
+        Algunas opciones del menú se activan sólo si hay
+        al menos una tab en Tabwidget
+        """
         self.menu_edicion.setEnabled(tabs)
         self.menu_codigo.setEnabled(tabs)
         self.menu_archivo.setFilesTabs(tabs)
+        print("setFilesTabs", tabs)
 
     def setStatus(self, status):
+        """
+        Algunas opciones del menú se activan o desactivan
+        según el estado del documento del tab seleccionado en tabwidget
+        """
         paste = status.get("paste", True)
         undo = status.get("undo", True)
         redo = status.get("redo", True)
+        copy = status.get("copy", True)
         modified = status.get("modified", True)
-        #FIXME: Implementar canCopy()
+        #FIXME: Implementar selectedAll
 
         self.menu_archivo.setStatus(modified)
-        self.menu_edicion.setStatus(paste, undo, redo)
+        self.menu_edicion.setStatus(paste, undo, redo, copy)
         # FIXME: en menu_edicion seleccionar se activa si hay archivo con texto y sin seleccionar
+
+        print("setStatus", status)
