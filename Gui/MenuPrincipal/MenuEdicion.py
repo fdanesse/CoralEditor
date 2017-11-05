@@ -50,10 +50,10 @@ class MenuEdicion(QMenu):
         self.seleccionar.setEnabled(False)
         self.addAction(self.seleccionar)
 
-    def setStatus(self, paste, undo, redo, copy):
+    def setStatus(self, paste, undo, redo, copy, selectAll):
         self.pegar.setEnabled(paste)  #FIXME: desactivado si textwidget no tiene el cursor activo
         self.undo.setEnabled(undo)
         self.redo.setEnabled(redo)
         self.copiar.setEnabled(copy)
         self.cortar.setEnabled(copy)
-        #FIXME: falta seleccionar todo
+        self.seleccionar.setEnabled(selectAll)

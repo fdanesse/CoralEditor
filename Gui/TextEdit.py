@@ -91,10 +91,11 @@ class TextEdit(QPlainTextEdit):
         #self.syntaxHighlighter = PythonHighlighter(self.document())
 
         self.canCopy = False
+        self.canSelectAll = True
         # Señales
         #self.blockCountChanged.connect(self.__newBlock)
-        #self.cursorPositionChanged.connect(()
-        #self.selectionChanged.connect(()
+        #self.cursorPositionChanged.connect()
+        self.selectionChanged.connect(self.__changedSelection)
         #self.textChanged.connect(self.__changedText)
         #self.updateRequest.connect((const QRect &rect, int dy)
         self.modificationChanged.connect(self.__chanedModification)
@@ -128,13 +129,18 @@ class TextEdit(QPlainTextEdit):
             "redo": self.document().isRedoAvailable(),
             "modified": self.document().isModified(),
             "copy": self.canCopy,
-            # FIXME: implementar selectedAll
+            "selectAll": self.canSelectAll
         }
 
     def __chanedModification(self, changed):
         pass
         #print("Document changed:", changed)
 
+    def __changedSelection(self):
+        cursor = self.textCursor()
+        selected = cursor.selectionEnd()-cursor.selectionStart()
+        self.canSelectAll = selected < len(self.toPlainText())
+        
     def __copyAvailable(self, available):
         self.canCopy = available
 

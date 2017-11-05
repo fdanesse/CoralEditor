@@ -44,15 +44,14 @@ class MenuBar(QMenuBar):
         Algunas opciones del menú se activan o desactivan
         según el estado del documento del tab seleccionado en tabwidget
         """
-        paste = status.get("paste", True)
-        undo = status.get("undo", True)
-        redo = status.get("redo", True)
-        copy = status.get("copy", True)
-        modified = status.get("modified", True)
-        #FIXME: Implementar selectedAll
+        paste = status.get("paste", False)
+        undo = status.get("undo", False)
+        redo = status.get("redo", False)
+        copy = status.get("copy", False)
+        modified = status.get("modified", False)
+        selectAll = status.get("selectAll", False)  #FIXME: no coherente al cambiar el foco entre tabs
 
         self.menu_archivo.setStatus(modified)
-        self.menu_edicion.setStatus(paste, undo, redo, copy)
-        # FIXME: en menu_edicion seleccionar se activa si hay archivo con texto y sin seleccionar
+        self.menu_edicion.setStatus(paste, undo, redo, copy, selectAll)
 
         print("setStatus", status)
