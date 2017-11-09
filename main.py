@@ -48,8 +48,10 @@ class Coral(QMainWindow):  #Coral(QWidget):  #A widget with no parent is called 
 
         #area = QMdiArea()  # para aplicaciones con subventanas
 
-        self.menubar.menu_archivo.sig.new_file.connect(self.new_file)
-        self.menubar.menu_archivo.sig.open_file.connect(self.showDialog_open_file)
+        self.menubar.menu_archivo.sig.new_file.connect(
+            self.splitter.tabwidget.new_file)
+        self.menubar.menu_archivo.sig.open_file.connect(
+            self.showDialog_open_file)
         
         self.menubar.menu_edicion.sig.select_all.connect(
             self.splitter.tabwidget.selectedAll)
@@ -84,7 +86,7 @@ class Coral(QMainWindow):  #Coral(QWidget):  #A widget with no parent is called 
             if os.path.exists(path):
                 path = os.path.realpath(path)
                 #FIXME: commands no funciona en python 3
-                self.new_file(path)
+                self.splitter.tabwidget.new_file(path)
                 '''
                 datos = commands.getoutput('file -ik \"%s\"' % (path))
                 if "text" in datos or "x-python" in datos or \
@@ -96,9 +98,6 @@ class Coral(QMainWindow):  #Coral(QWidget):  #A widget with no parent is called 
                 '''
             else:
                 print("No se pudo abrir:", path)
-
-    def new_file(self, path=""):
-        self.splitter.tabwidget.new_file(path)
 
 
 if __name__ == '__main__':
