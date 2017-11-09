@@ -90,19 +90,17 @@ class TextEdit(QPlainTextEdit):
 
         #self.syntaxHighlighter = PythonHighlighter(self.document())
 
-        self.canCopy = False
-        self.canSelectAll = True
         # Señales
         #self.blockCountChanged.connect(self.__newBlock)
         #self.cursorPositionChanged.connect()
-        self.selectionChanged.connect(self.__changedSelection)
+        #self.selectionChanged.connect(self.__changedSelection)
         #self.textChanged.connect(self.__changedText)
         #self.updateRequest.connect((const QRect &rect, int dy)
-        self.modificationChanged.connect(self.__chanedModification)
+        #self.modificationChanged.connect(self.__chanedModification)
 
-        self.copyAvailable.connect(self.__copyAvailable)
-        self.undoAvailable.connect(self.__undoAvailable)
-        self.redoAvailable.connect(self.__redoAvailable)
+        #self.copyAvailable.connect(self.__copyAvailable)
+        #self.undoAvailable.connect(self.__undoAvailable)
+        #self.redoAvailable.connect(self.__redoAvailable)
 
         if os.path.exists(self.path):
             file = open(self.path, 'r')
@@ -120,37 +118,31 @@ class TextEdit(QPlainTextEdit):
 
     def getStatus(self):
         """
-        El estado del documento se debe reflejar en la toolbar
-        y el menu principales.
+        Si se modifica el texto, se puede guardar.
         """
         return{
-            "paste": self.canPaste(),
-            "undo": self.document().isUndoAvailable(),
-            "redo": self.document().isRedoAvailable(),
             "modified": self.document().isModified(),
-            "copy": self.canCopy,
-            "selectAll": self.canSelectAll
         }
 
-    def __chanedModification(self, changed):
-        pass
-        #print("Document changed:", changed)
+    #def __chanedModification(self, changed):
+    #    pass
+    #    #print("Document changed:", changed)
 
-    def __changedSelection(self):
-        cursor = self.textCursor()
-        selected = cursor.selectionEnd()-cursor.selectionStart()
-        self.canSelectAll = selected < len(self.toPlainText())
+    #def __changedSelection(self):
+    #    cursor = self.textCursor()
+    #    selected = cursor.selectionEnd()-cursor.selectionStart()
+    #    self.canSelectAll = selected < len(self.toPlainText())
         
-    def __copyAvailable(self, available):
-        self.canCopy = available
+    #def __copyAvailable(self, available):
+    #    self.canCopy = available
 
-    def __undoAvailable(self, available):
-        pass
-        #print("Undo:", available)
+    #def __undoAvailable(self, available):
+    #    pass
+    #    #print("Undo:", available)
 
-    def __redoAvailable(self, available):
-        pass
-        #print("Redo:", available)
+    #def __redoAvailable(self, available):
+    #    pass
+    #    #print("Redo:", available)
 
     def keyPressEvent(self, event):
         # https://doc.qt.io/qt-5/qt.html#Key-enum

@@ -76,25 +76,6 @@ class Toolbar(QToolBar):
 
         self.addSeparator()
 
-        item = QAction(QIcon('Iconos/edit-undo.png'),
-            'Deshacer', self)
-        item.setEnabled(False)
-        self.addAction(item)
-
-        item = QAction(QIcon('Iconos/edit-redo.png'),
-            'Rehacer', self)
-        item.setEnabled(False)
-        self.addAction(item)
-
-        self.addSeparator()
-
-        item = QAction(QIcon('Iconos/edit-select-all.png'),
-            'Seleccionar Todo', self)
-        item.setEnabled(False)
-        self.addAction(item)
-
-        self.addSeparator()
-
         item = QAction(QIcon('Iconos/buscar.png'),
             'Buscar...', self)
         item.setEnabled(False)
