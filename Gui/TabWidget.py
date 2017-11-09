@@ -68,3 +68,6 @@ class TabWidget(QTabWidget):
         
         #self.setTabToolTip(0, "Descripción corta")
         #self.setWhatsThis("Descripción Larga")
+
+    def selectedAll(self):
+        self.currentWidget().widget().selectAll()
