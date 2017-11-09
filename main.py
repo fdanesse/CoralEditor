@@ -56,8 +56,10 @@ class Coral(QMainWindow):  #Coral(QWidget):  #A widget with no parent is called 
         self.menubar.menu_edicion.sig.select_all.connect(
             self.splitter.tabwidget.selectedAll)
 
-        self.toolbar.sig.new_file.connect(self.new_file)
-        self.toolbar.sig.open_file.connect(self.showDialog_open_file)
+        self.toolbar.sig.new_file.connect(
+            self.splitter.tabwidget.new_file)
+        self.toolbar.sig.open_file.connect(
+            self.showDialog_open_file)
 
         print("Coral process:", os.getpid())
 
