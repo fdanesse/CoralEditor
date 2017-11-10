@@ -76,9 +76,17 @@ class Coral(QMainWindow):  #Coral(QWidget):  #A widget with no parent is called 
         dialog.setAcceptMode(QFileDialog.AcceptOpen)
         dialog.setOption(QFileDialog.DontUseNativeDialog, True)
         dialog.setOption(QFileDialog.DontResolveSymlinks, True)
+        
+        dirpath = os.environ["HOME"]
+        scroll = self.splitter.tabwidget.currentWidget()
+        if scroll:
+            dirpath = scroll.widget().path
+            if not os.path.exists(dirpath):
+                dirpath = os.environ["HOME"]
+        
         #FIXME: Mejorar sistema o completar formatos
         ret = dialog.getOpenFileNames(self, 'Abrir Archivo',
-            os.environ["HOME"], "Texto (*.txt *.py *.json *.html \
+            dirpath, "Texto (*.txt *.py *.json *.html \
             *.js *.css *.qss *.vala *.svg *.xml)")
             #;;Text files (*.txt);;XML files (*.xml)")
         for path in ret[0]:
