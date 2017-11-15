@@ -80,10 +80,10 @@ class Coral(QMainWindow):  #Coral(QWidget):  #A widget with no parent is called 
         dirpath = os.environ["HOME"]
         scroll = self.splitter.tabwidget.currentWidget()
         if scroll:
-            dirpath = scroll.widget().path
+            dirpath = scroll.widget().path  # En realidad es el filepath
             if not os.path.exists(dirpath):
                 dirpath = os.environ["HOME"]
-        
+
         #FIXME: Mejorar sistema o completar formatos
         ret = dialog.getOpenFileNames(self, 'Abrir Archivo',
             dirpath, "Texto (*.txt *.py *.json *.html \
